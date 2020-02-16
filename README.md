@@ -1,4 +1,4 @@
-# start a rnode network with
+# Start a rnode network with docker-compose
 
 ## Pre-install
 
