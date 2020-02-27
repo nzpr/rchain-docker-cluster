@@ -14,12 +14,12 @@
 
 The docker-compose would start the network from genesis ceremony.
 
-All the related keys are used in [keys.txt](../blob/master/keys.txt).
+All the related keys are used in [keys.txt](./keys.txt).
 Those keys are formatted as `PublicKeyHex, PrivateKeyHex`, `RevAddress`.
 
-The initial bonding validators are in [bonds.txt](../blob/master/bonds.txt).
+The initial bonding validators are in [bonds.txt](./bonds.txt).
 
-The initial wallets are in [wallets.txt](../blob/master/wallets.txt)
+The initial wallets are in [wallets.txt](./wallets.txt)
 
 ## External Resource
 
