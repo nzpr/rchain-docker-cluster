@@ -2,12 +2,12 @@
 
 ## Pre-install
 
-1. [docker](https://docs.docker.com/install/)
-2. [docker-compose](https://docs.docker.com/compose/install/)
+1. [docker](https://docs.docker.com/install/)  >=17.09.0
+2. [docker-compose](https://docs.docker.com/compose/install/)  >=1.17.0
 
 ## Usage
 
-    $ git clone https://github.com/zsluedem/rchain-docker-cluster.git && cd rchain-docker-cluster.git
+    $ git clone https://github.com/zsluedem/rchain-docker-cluster.git && cd rchain-docker-cluster
     $ docker-compose up
 
 ## Explanations
