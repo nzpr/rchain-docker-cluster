@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+  readonly:
+    image: rchain/rnode:latest
+    user: root
+    networks:
+      - rchain-net
+    container_name: rnode.readonly
+    ports:
+      - "40401:40401"
+    command:
+      [
+        "run",
+        "--bootstrap=rnode://5b0390a7c34319310de2432cc2c9dc433043783e@$BOOTSTRAP_HOST?protocol=40400&discovery=40404",
+        "--host=$READONLY_HOST",
+        "--allow-private-addresses",
+        "-n",
+        "--synchrony-constraint-threshold=$SYNCHRONY_CONSTRAINT_THREDHOLD",
+        "--fork-choice-stale-threshold=$FORK_CHOICE_STALE_THRESHOLD",
+        "--fork-choice-check-if-stale-interval=$FORK_CHOICE_CHECK_IF_STALE_INTERVAL",
+      ]
+
+networks:
+  rchain-net:

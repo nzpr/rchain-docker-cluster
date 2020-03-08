@@ -10,6 +10,11 @@
     $ git clone https://github.com/zsluedem/rchain-docker-cluster.git && cd rchain-docker-cluster
     $ docker-compose up
 
+
+To start a read-only node
+
+    $ docker-compose -f ./read-only.yml up
+
 If you want to make the network going forward automatically,
 here also provides an auto propose script to make the network
 propose blocks automatically.
