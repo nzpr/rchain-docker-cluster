@@ -5,13 +5,13 @@
 1. [docker](https://docs.docker.com/install/) >=17.09.0
 2. [docker-compose](https://docs.docker.com/compose/install/) >=1.17.0
 
-## Usage
+## Start Network
 
     $ git clone https://github.com/zsluedem/rchain-docker-cluster.git && cd rchain-docker-cluster
     $ docker-compose up
 
 
-To start a read-only node
+To start a read-only node to join the network
 
     $ docker-compose -f ./read-only.yml up
 
@@ -21,6 +21,10 @@ propose blocks automatically.
 
     # make sure you run the command above first and the network is doing well
     $ docker-compose -f ./propose.yml up
+    
+## Start a single node
+
+    $ docker-compose -f ./single.yml up
 
 ## Explanations
 
