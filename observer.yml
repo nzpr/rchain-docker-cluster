@@ -5,7 +5,7 @@ services:
     user: root
     networks:
       - rchain-net
-    container_name: rnode.readonly
+    container_name: rnode.observer
     ports:
       - "40401:40401"
     command:
@@ -14,11 +14,12 @@ services:
         "--bootstrap=rnode://5b0390a7c34319310de2432cc2c9dc433043783e@$BOOTSTRAP_HOST?protocol=40400&discovery=40404",
         "--host=$READONLY_HOST",
         "--allow-private-addresses",
-        "-n",
         "--synchrony-constraint-threshold=$SYNCHRONY_CONSTRAINT_THREDHOLD",
-        "--fork-choice-stale-threshold=$FORK_CHOICE_STALE_THRESHOLD",
-        "--fork-choice-check-if-stale-interval=$FORK_CHOICE_CHECK_IF_STALE_INTERVAL",
       ]
+    volumes:
+      - ./data/observer:/var/lib/rnode/
+      - ./conf/observer.conf:/var/lib/rnode/rnode.conf
+      - ./conf/logback.xml:/var/lib/rnode/logback.xml
 
 networks:
   rchain-net:
