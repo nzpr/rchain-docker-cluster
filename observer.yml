@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   readonly:
-    image: rchain/rnode:latest
+    image: nuttzipper/rnode:schedulers
     user: root
     networks:
       - rchain-net
@@ -11,7 +11,7 @@ services:
     command:
       [
         "run",
-        "--bootstrap=rnode://5b0390a7c34319310de2432cc2c9dc433043783e@$BOOTSTRAP_HOST?protocol=40400&discovery=40404",
+        "--bootstrap=rnode://22457f2b426a31b5b497376ed4341a2092d5c6cc@$BOOTSTRAP_HOST?protocol=40400&discovery=40404",
         "--host=$READONLY_HOST",
         "--allow-private-addresses",
         "--synchrony-constraint-threshold=$SYNCHRONY_CONSTRAINT_THREDHOLD",
