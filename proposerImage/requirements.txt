@@ -8,4 +8,4 @@ pyjq
 natsort
 pyyaml
 websockets
-git+https://github.com/rchain/pyrchain@47e6d550922d67c634dd99db0ea3bfe2c0997929
+git+https://github.com/rchain/pyrchain@41e6d2a2a5cb5db3f6b8961a1ed9e31e72ad538b

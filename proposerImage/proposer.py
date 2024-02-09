@@ -64,14 +64,13 @@ args = parser.parse_args()
 class Client():
     def __init__(self, host, grpc_port, websocket_host, host_name):
         self.host = host
-        self.grpc_host = "{}:{}".format(host, grpc_port)
+        self.port = grpc_port
         self.websocket_host = "ws://{}:{}/ws/events".format(host, websocket_host)
         self.host_name = host_name
         self.asycn_ws = None
 
     def deploy_and_propose(self, deploy_key, contract, phlo_price, phlo_limit):
-        with grpc.insecure_channel(self.grpc_host) as channel:
-            client = RClient(channel)
+        with RClient(self.host, self.port) as client:
             try:
                 return client.propose()
             except RClientException as e:
@@ -88,8 +87,7 @@ class Client():
 
 
     def is_contain_block_hash(self, block_hash):
-        with grpc.insecure_channel(self.grpc_host) as channel:
-            client = RClient(channel)
+        with RClient(self.host, self.port) as client:
             try:
                 client.show_block(block_hash)
                 return True
@@ -225,7 +223,7 @@ class DispatchCenter():
             wait(block_hash)
 
 with open(args.config) as f:
-    config = yaml.load(f)
+    config = yaml.full_load(f)
 
 
 def init_client(host_name, host_config):

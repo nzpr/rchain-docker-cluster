@@ -1,6 +1,6 @@
 servers:
   - bootstrap:
-      host: rnode.boot
+      host: rnode.bootstrap
       grpc_port: 40402
       http_port: 40403
   - validator1:
