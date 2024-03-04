@@ -1,7 +1,7 @@
 version: "3.4"
 
 x-rnode: &default-rnode
-  image: nuttzipper/rnode:schedulers
+  image: nuttzipper/rnode:dev
   user: root
   networks:
     - rchain-net
