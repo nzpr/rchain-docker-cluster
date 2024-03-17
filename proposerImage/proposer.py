@@ -178,6 +178,9 @@ class DispatchCenter():
         logging.info("Updating the host queue")
 
         error_nodes = set([host_name for host_name, _ in self.read_error_node()])
+        if len(error_nodes) != 0:
+            logging.error("Errored nodes found, exiting")
+            exit(1)
         all_hosts = set([host_name for host_name in self.clients.keys()])
         queued_hosts = set(list(self.queue))
 
