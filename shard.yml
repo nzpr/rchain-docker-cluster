@@ -5,19 +5,21 @@ x-rnode: &default-rnode
   user: root
   networks:
     - rchain-net
+  environment:
+    JAVA_OPTS: >
+      -Dcom.sun.management.jmxremote.port=9001
+      -Dcom.sun.management.jmxremote.rmi.port=9001
+      -Dcom.sun.management.jmxremote.local.only=false
+      -Dcom.sun.management.jmxremote.authenticate=false
+      -Dcom.sun.management.jmxremote.ssl=false
+      -Djava.rmi.server.hostname=localhost
+    JAVA_TOOL_OPTIONS: >
+      -agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n
 
 services:
   boot:
     <<: *default-rnode
     container_name: $BOOTSTRAP_HOST
-    environment:
-      JAVA_OPTS: >
-        -Dcom.sun.management.jmxremote.port=9001
-        -Dcom.sun.management.jmxremote.rmi.port=9001
-        -Dcom.sun.management.jmxremote.local.only=false
-        -Dcom.sun.management.jmxremote.authenticate=false
-        -Dcom.sun.management.jmxremote.ssl=false
-        -Djava.rmi.server.hostname=localhost
     command:
       [
         "run",
@@ -33,6 +35,7 @@ services:
       - 40403:40403
       - 40404:40404
       - 9001:9001
+      - 5005:5005
     volumes:
       - ./data/$BOOTSTRAP_HOST:/var/lib/rnode/
       - ./genesis/wallets.txt:/var/lib/rnode/genesis/wallets.txt
@@ -43,14 +46,6 @@ services:
   validator1:
     <<: *default-rnode
     container_name: $VALIDATOR1_HOST
-    environment:
-      JAVA_OPTS: >
-        -Dcom.sun.management.jmxremote.port=9002
-        -Dcom.sun.management.jmxremote.rmi.port=9002
-        -Dcom.sun.management.jmxremote.local.only=false
-        -Dcom.sun.management.jmxremote.authenticate=false
-        -Dcom.sun.management.jmxremote.ssl=false
-        -Djava.rmi.server.hostname=localhost
     command:
       [
         "run",
@@ -66,7 +61,8 @@ services:
       - 50402:40402
       - 50403:40403
       - 50404:40404
-      - 9002:9002
+      - 9002:9001
+      - 5006:5005
     volumes:
       - ./data/$VALIDATOR1_HOST:/var/lib/rnode/
       - ./genesis/wallets.txt:/var/lib/rnode/genesis/wallets.txt
@@ -77,14 +73,6 @@ services:
   validator2:
     <<: *default-rnode
     container_name: $VALIDATOR2_HOST
-    environment:
-      JAVA_OPTS: >
-        -Dcom.sun.management.jmxremote.port=9003
-        -Dcom.sun.management.jmxremote.rmi.port=9003
-        -Dcom.sun.management.jmxremote.local.only=false
-        -Dcom.sun.management.jmxremote.authenticate=false
-        -Dcom.sun.management.jmxremote.ssl=false
-        -Djava.rmi.server.hostname=localhost
     command:
       [
         "run",
@@ -100,7 +88,8 @@ services:
       - 60402:40402
       - 60403:40403
       - 60404:40404
-      - 9003:9003
+      - 9003:9001
+      - 5007:5005
     volumes:
       - ./data/$VALIDATOR2_HOST:/var/lib/rnode/
       - ./genesis/wallets.txt:/var/lib/rnode/genesis/wallets.txt

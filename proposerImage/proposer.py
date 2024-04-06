@@ -117,7 +117,7 @@ class DispatchCenter():
         self.phlo_price = int(config['deploy']['phlo_price'])
 
         self.wait_timeout = int(config['waitTimeout'])
-        self.wait_interval = int(config['waitInterval'])
+        self.wait_interval = float(config['waitInterval'])
 
         self.error_node_records = config['error_node_records']
 

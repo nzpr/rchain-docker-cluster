@@ -12,7 +12,7 @@ servers:
       grpc_port: 40402
       http_port: 40403
 waitTimeout: 300
-waitInterval: 10
+waitInterval: 0.015
 error_node_records: /error.txt
 error_logs: /error.log
 deploy:
