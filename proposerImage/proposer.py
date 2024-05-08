@@ -92,7 +92,6 @@ class Client():
                 client.show_block(block_hash)
                 return True
             except RClientException:
-                logging.info("node {} doesn't contain {}".format(self.host_name, block_hash))
                 return False
 
 
@@ -141,6 +140,35 @@ class DispatchCenter():
             return block_hash
         except Exception as e:
             logging.warning("Node {} can not deploy and propose because of {}".format(client.host_name, e))
+
+    def wait_all_server_to_receive(self, block_hash):
+        """return True when all servers receive the block hash"""
+        current_time = int(time.time())
+        wait_server = self.queue.popleft()
+        logging.info("Waiting for all peers to receive {} at {}".format(block_hash, current_time))
+        while time.time() - current_time < self.wait_timeout:
+            try:
+                time.sleep(self.wait_interval)
+                done = True
+                for client in self.clients.values():
+                    is_contain = client.is_contain_block_hash(block_hash)
+                    logging.info("Node {}: {}".format(client.host_name, is_contain))
+                    if is_contain is not True:
+                        done = False
+                if done:
+                    self.queue.appendleft(wait_server)
+                    return True
+                else:
+                    logging.info("Sleep {} s and try again".format(self.wait_interval))
+
+            except Exception as e:
+                logging.error(
+                    "Error while querying for proposed block. Exception {}".format(e))
+                break
+
+        logging.error("Timeout hit waiting for {} to propagate: {}".format(block_hash, time.time()))
+        self.write_error_node(client)
+        return False
 
     def wait_next_server_to_receive(self, block_hash):
         """return True when the next server receive the block hash"""
@@ -214,7 +242,7 @@ class DispatchCenter():
 
     def run(self):
         def wait(block_hash):
-            if self.wait_next_server_to_receive(block_hash):
+            if self.wait_all_server_to_receive(block_hash):
                 return
             else:
                 wait(block_hash)
