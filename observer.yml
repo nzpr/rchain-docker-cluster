@@ -7,7 +7,8 @@ services:
       - rchain-net
     container_name: rnode.readonly
     ports:
-      - "30401:30401"
+      - "30401:40401"
+      - "30405:40405"
     command:
       [
         "run",
